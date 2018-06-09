@@ -86,3 +86,21 @@ def reduce_puzzle(values):
         if len([box for box in values.keys() if len(values[box]) == 0]):
             return False
     return values
+
+def search(values):
+    "Using depth-first search and propagation, create a search tree and solve the sudoku."
+    # First, reduce the puzzle until stalls
+    values = reduce_puzzle(values)
+    if values is False:
+        return False
+    if all(len(values[s]) == 1 for s in boxes):
+        return values # SOLVED!!
+    # Choose one of the unfilled squares with the fewest possibilities
+    n,s = min((len(values[s]), s) for s in boxes if len(values[s]) > 1)
+    # Use recursion to solve each one of the resulting sudokus, and if one returns a value (not False), return that answer!
+    for value in values[s]:
+        new_values = values.copy()
+        new_values[s] = value
+        attempt = search(new_values)
+        if attempt:
+            return attempt

@@ -27,3 +27,11 @@ def display(values):
                       for c in cols))
         if r in 'CF': print(line)
     return
+
+def grid_values(grid):
+    """
+    Combine boxes and grid into a dict with label and value pairs
+    Keep '.' for undecided boxes
+    """
+    assert len(grid) == 81 # to ensure good input
+    return dict(zip(boxes, grid))

@@ -31,7 +31,14 @@ def display(values):
 def grid_values(grid):
     """
     Combine boxes and grid into a dict with label and value pairs
-    Keep '.' for undecided boxes
+    Replace empty values with all possible values
     """
-    assert len(grid) == 81 # to ensure good input
+    values = []
+    all_digits = '123456789'
+    for c in grid:
+        if c == '.':
+            values.append(all_digits)
+        elif c in all_digits:
+            values.append(c)
+    assert len(values) == 81
     return dict(zip(boxes, grid))

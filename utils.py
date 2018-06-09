@@ -42,3 +42,15 @@ def grid_values(grid):
             values.append(c)
     assert len(values) == 81
     return dict(zip(boxes, grid))
+
+def eliminate(values):
+    """
+    Eliminate values from peers of each box with a single value.
+    Returns Sudoku in dictionary form after eliminating values.
+    """
+    solved_values = [box for box in values.keys() if len(values[box]) == 1]
+    for box in solved_values:
+        digit = values[box]
+        for peer in peers[box]:
+            values[peer] = values[peer].replace(digit, '')
+    return values

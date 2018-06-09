@@ -54,3 +54,15 @@ def eliminate(values):
         for peer in peers[box]:
             values[peer] = values[peer].replace(digit, '')
     return values
+
+def only_choice(values):
+    """
+    Go through all the units, and whenever there is a unit with a value
+    that only fits in one box, assign the value to this box.
+    """
+    for unit in unitlist:
+        for d in '123456789':
+            dplaces = [box for box in unit if d in values[box]]
+            if len(dplaces) == 1:
+                values[dplaces[0]] = d
+    return values
